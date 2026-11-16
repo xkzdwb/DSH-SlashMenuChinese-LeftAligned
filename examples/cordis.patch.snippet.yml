@@ -1,0 +1,10 @@
+# 只贴配置块：已经装过这个包、想改词条或关掉左对齐时，把这段合并进
+# ~/.dsh/profiles/<profile>/cordis.patch.yml（同 id 的块会覆盖前一块）。
+- insert:
+    - id: slash-menu-zh
+      name: 'dsh-slash-menu-chinese'
+      config:
+        align: left          # left = 统一左对齐；keep = 只换中文，不改对齐
+        overrides:           # 追加或覆盖内置词典（内置 28 条已含官方条目，这里只是换说法）
+          office-docx: 读写 .docx：创建、读取、编辑、校验
+          agent-experience: 写工具定义 / 技能描述这类「让信息可被发现」的活时照着做

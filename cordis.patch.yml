@@ -1,0 +1,32 @@
+# slash-menu-zh — 把 / 菜单的每一条描述换成中文，并把描述统一左对齐。
+#
+# 两件事，都是界面层的问题：
+#
+#   1. 语言不一。菜单行显示的就是注册方写的 `description`：`/acp`、`/acp-cache`
+#      （billion-context）、`/answer-me-with-html`、`MisakaNet search`（misakanet 的
+#      取词器）是英文；app.asar 里的核心技能（office*、cordis-*、agent-experience、
+#      diagnose-windows-sandbox-acl、editing-cordis-compositions）也是英文；手工做过
+#      中文化的插件会变成「中文 ｜ English」两截，一行装不下。
+#   2. 对齐不一。描述那一列是 text-align:right——短描述贴右边缘（看着右对齐），
+#      长描述撑满整行再被「…」截断（看着左对齐）。同一张列表两种节奏。
+#
+# Host 半边只做一件事：一条只读 GET 路由 /plugin-slash-menu-zh/state，返回词典和
+# align 设置。Client 半边读它，注入一条 <style>（只管对齐）+ 一个 MutationObserver
+# （只改那几行的描述文字），并把「改完仍是英文」的行汇报回去（state 里的 client.unknown），
+# 漏翻的条目因此能被查出来，而不是只能靠截图发现。不改任何上游包文件，不注册也不覆盖任何技能。
+- insert:
+    - id: slash-menu-zh
+      name: 'dsh-slash-menu-chinese'
+      config:
+        # left = 所有描述统一左对齐（默认）；keep = 保留宿主原样，只做中文替换。
+        align: left
+        # 追加/覆盖词条：name → 一句话中文，优先级高于内置词典。
+        # 内置 28 条覆盖三类：第三方命令与取词器（acp / acp-cache / misakanet）、
+        # 第三方技能（answer-me-with-html、caveman 5 条、EGM 7 条）、app.asar 里的核心技能
+        # （office 7 条 + diagnose-windows-sandbox-acl + agent-experience + cordis-* 2 条 +
+        # editing-cordis-compositions）。本来就是中文的行（权限 / 模型 / 目标 / 计划 /
+        # 反馈 / 下载日志 / 文件 / 全部功能）不需要词条，Client 半边不会动它们。
+        # 想改官方条目的说法，在这里覆盖，例如：
+        #   overrides:
+        #     office-docx: 读写 .docx：创建、读取、编辑、校验
+        overrides: {}

@@ -1,0 +1,54 @@
+{
+  "name": "dsh-slash-menu-chinese",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "把 / 菜单里每一条描述的英文换成中文（第三方命令、第三方技能、app.asar 里的核心技能、其他插件加的取词器），并把所有行的描述统一左对齐；不改任何上游包，只改界面那一层。",
+  "main": "index.js",
+  "icon": "./icon.svg",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "dsh",
+    "cordis",
+    "plugin",
+    "deepseek",
+    "palette",
+    "slash-menu",
+    "chinese",
+    "localization",
+    "alignment"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "locale/*.json",
+    "README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": []
+    }
+  },
+  "scripts": {
+    "test": "node test/run-tests.mjs",
+    "test:assets": "node tools/check-assets.mjs"
+  }
+}

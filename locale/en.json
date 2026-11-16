@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "斜杠菜单中文化",
+    "description": "Replaces the English descriptions of third-party entries in the \"/\" menu with Chinese, and pulls every row's description to one left edge."
+  }
+}
